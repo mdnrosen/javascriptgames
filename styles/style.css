@@ -10,7 +10,10 @@ body {
   text-align: center;
   background-image: url("battleships.jpg");
   background-size: cover;
+  background-opacity
 }
+
+
 
 .start {
   text-align: center;
