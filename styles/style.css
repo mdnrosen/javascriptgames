@@ -1,5 +1,89 @@
+* {
+  box-sizing: border-box;
+}
+
+/* GENERAL STYLING */
 body {
   color: papayawhip;
   background-color: blue;
   text-align: center;
 }
+
+main {
+  margin: 0 auto;
+  border: 1px solid white;
+  height: 600px;
+  width: 1200px;
+  display: flex;
+  flex-direction: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.leftside {
+  width: 599px;
+  height: 600px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid white;
+}
+
+.rightside {
+  width: 599px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid white;
+}
+
+.divide {
+  background-color: papayawhip;
+  color: black;
+  justify-content: flex-end;
+}
+
+/* BUTTONS AND TEXT BOX */
+.textbox {
+  height: 100px;
+  width: 200px;
+  border: 1px solid white;
+
+}
+
+
+
+/* THE GRIDS */
+.map {
+  height: 450px;
+  width: 450px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: auto;
+  background-image: url('images/ocean-background.jpg');
+}
+
+.radar {
+  height: 250px;
+  width: 250px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+  background-image: url('radar.jpg');
+}
+
+.grid-item {
+    height: 44px;
+    width: 44px;
+    border: 1px solid black;
+
+  }
+
+  .radar-item {
+    height: 24px;
+    width: 24px;
+    border: 1px solid black;
+  }
