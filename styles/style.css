@@ -5,19 +5,29 @@
 /* GENERAL STYLING */
 body {
   color: papayawhip;
-  background-color: blue;
+  font-family: 'Special Elite', cursive;
+  background-color: grey;
   text-align: center;
+  background-image: url("battleships.jpg");
+  background-size: cover;
 }
 
-main {
+.start {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 50px;
+  cursor: crosshair;
+}
+
+.maingame {
   margin: 0 auto;
   border: 1px solid white;
   height: 600px;
   width: 1200px;
-  display: flex;
   flex-direction: row wrap;
   justify-content: flex-start;
   align-items: center;
+  display: none;
 }
 
 .leftside {
@@ -26,6 +36,8 @@ main {
   display: flex;
   justify-content: space-between;
   border: 1px solid white;
+  background-image: url('ocean-background.jpg');
+  background-size: cover;
 }
 
 .rightside {
@@ -44,12 +56,15 @@ main {
   justify-content: flex-end;
 }
 
+.divide p {
+  padding: 10px 2px 5px 2px;
+}
+
 /* BUTTONS AND TEXT BOX */
 .textbox {
   height: 100px;
   width: 200px;
   border: 1px solid white;
-
 }
 
 
@@ -62,16 +77,15 @@ main {
   flex-flow: row wrap;
   justify-content: center;
   margin: auto;
-  background-image: url('images/ocean-background.jpg');
 }
 
 .radar {
-  height: 250px;
-  width: 250px;
+  height: 350px;
+  width: 350px;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-end;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   background-image: url('radar.jpg');
 }
 
@@ -83,7 +97,28 @@ main {
   }
 
   .radar-item {
-    height: 24px;
-    width: 24px;
+    height: 35px;
+    width: 35px;
     border: 1px solid black;
+  }
+
+  /* THE SHIPS */
+  .carrier {
+    background-color: blue;
+  }
+
+  .battleship {
+    background-color: red;
+  }
+
+  .cruiser {
+    background-color: green;
+  }
+
+  .submarine {
+    background-color: yellow;
+  }
+
+  .submarine {
+    background-color: grey;
   }

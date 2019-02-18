@@ -1,12 +1,8 @@
-window.addEventListener('DOMContentLoaded', () => {
+$(() => {
 
-
-  //how the fuck to do javascript grids
   const map = document.querySelector('.map')
-
   function makeMap() {
     const mapSize = new Array(100)
-
     for (let i = 0; i < mapSize.length ; i++) {
       const grid = document.createElement('div')
       grid.setAttribute('class','grid-item')
@@ -15,12 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   makeMap()
 
-
   const radar = document.querySelector('.radar')
-
   function makeRadar() {
     const radarSize = new Array(100)
-
     for (let i = 0; i < radarSize.length ; i++) {
       const radarGrid = document.createElement('div')
       radarGrid.setAttribute('class','radar-item')
@@ -30,10 +23,20 @@ window.addEventListener('DOMContentLoaded', () => {
   makeRadar()
 
 
+  // ALL MY VARIABLES
+  const textBox = document.querySelector('.textbox')
+  const startButton = document.querySelector('.start')
+  const mainGame = document.querySelector('.maingame')
 
 
 
+  //MAKE THE START BUTTON DISAPPEAR AND STUFF
+  startButton.addEventListener('click', () => {
+    startButton.style.display = 'none'
+    mainGame.style.display = 'flex'
+    textBox.innerHTML = 'Hello'
 
+  })
 
 
 
@@ -55,20 +58,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // SHIP CREATION
 
-  // const Ship = constructor(hitPoints, shipLength, shipSunk)
-  // {
-  //   this.hitPoints = hitPoints,
-  //   this.shipLength = shipLength,
-  //   this.shipSunk = shipSunk
-  // }
-  //
-  // const carrier = new Ship(5,5,false)
-  // const battleship = new Ship(4,4,false)
-  // const cruiser = new Ship(3,3,false)
-  // const submarine = new Ship(3,3,false)
-  // const destroyer = new Ship(2,2,false)
+  class UserShip {
+    constructor(shipType,hitPoints, shipLength, shipSunk) {
+      this.shipType = shipType,
+      this.hitPoints = hitPoints,
+      this.shipLength = shipLength,
+      this.shipSunk = shipSunk
+    }
+  }
 
-  // return Ship
+  const carrier = new UserShip('carrier',5,5,false)
+  const battleship = new UserShip('battleship',4,4,false)
+  const cruiser = new UserShip('cruiser',3,3,false)
+  const submarine = new UserShip('submarine',3,3,false)
+  const destroyer = new UserShip('destroyer',2,2,false)
+  return UserShip
   //
   //
   //
@@ -80,5 +84,5 @@ window.addEventListener('DOMContentLoaded', () => {
   //   ((Mathfloor(Mathrandom)) * 2)
   // }
 
-// DO NOT WRITE BELOW THIS LINE
+// **************************************DO NOT WRITE BELOW THIS LINE*********************************************************
 })
