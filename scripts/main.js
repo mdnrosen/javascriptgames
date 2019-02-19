@@ -28,7 +28,7 @@ $(() => {
       const grid = document.createElement('div')
       grid.setAttribute('class','grid-item')
       map.appendChild(grid)
-      playerMap.push(map)
+      playerMap.push(grid)
     }
   }
   makeMap()
@@ -37,8 +37,9 @@ $(() => {
     for (let i = 0; i < radarSize.length ; i++) {
       const radarGrid = document.createElement('div')
       radarGrid.setAttribute('class','radar-item')
+      radarGrid.setAttribute('data-id', i)
       radar.appendChild(radarGrid)
-      cpuMap.push(radar)
+      cpuMap.push(radarGrid)
     }
   }
   makeRadar()
@@ -115,36 +116,45 @@ $(() => {
   const userCruiser = document.querySelector('.cruiser')
   const userSubmarine = document.querySelector('.submarine')
   const userDestroyer = document.querySelector('.destroyer')
-  
 
-  function placeMyShip(shipType) {
-    if (//user choses vertical//) {
-      let vaPoint = shipType.vaShip()
-      radarSize[vaPoint] = shipType
-      for (let i = 1; i < shipType.shipLength; i++) {
-        vaPoint += 10
-        radarSize[vaPoint] = shipType
-      } occupiedRadar.push(shipType)
-    } else if (//user choses horizontal) > shipType.shipLength) {
-      let haPoint = shipType.haShip()
-      for (let i = 0; i < shipType.shipLength; i++) {
-        haPoint ++
-        radarSize[haPoint] = shipType
-      } occupiedRadar.push(shipType)
-    }
-  }
+
+  // function placeMyShip(shipType) {
+  //   let myAnchor = point where clicked
+  //   if (user choses vertical) {
+  //     for (let i = 1; i < shipType.shipLength; i++) {
+  //       myAnchor += 10
+  //       mapSize[myAnchor] = shipType
+  //       change background of each square to denote ship position
+  //   } else if (user choses horizontal) {
+  //     for (let i = 0; i < shipType.shipLength; i++) {
+  //       myAnchor ++
+  //       mapSize[myAnchor] = shipType
+  //       change background of each square to denote ship position
+  //   }
+  // }
+  //
+  // placeMyShip(myCarrier)
+  // placeMyShip(myBattleship)
+  // placeMyShip(myCruiser)
+  // placeMyShip(mySubmarine)
+  // placeMyShip(myDestroyer)
+
 
 
   // ************************************************************************************************
 
   //############################################ - SHOOTING - ############################################
-  const cpuFire = document.querySelector('.cpufire')
-  cpuFire.addEventListener('click', () => {
-    const mapTarget = Math.floor((Math.random() * 100))
-    mapSize[mapTarget].style.background = 'red'
+  // const cpuFire = document.querySelector('.cpufire')
+  // cpuFire.addEventListener('click', () => {
+  //   const mapTarget = Math.floor((Math.random() * 100))
+  //   mapSize[mapTarget].style.background = 'red'
+  //
+  //   console.log('fire captain!')
+  // })
 
-    console.log('fire captain!')
-  })
+  cpuMap.forEach(square => square.addEventListener('click', (e) => {
+    console.log(e.target.dataset.id)
+  }))
 
 
 

@@ -96,7 +96,7 @@ body {
     border: 1px solid black;
   }
 
-.grid-item:mouseIn {
+.grid-item : hover {
   background-color: rgba(192, 192, 192, 0.1);
 }
   .radar-item {
@@ -105,8 +105,7 @@ body {
     border: 1px solid black;
   }
 
-
-
+  .radar-item: hover
 
   .direction {
     display: flex;
@@ -125,7 +124,6 @@ body {
     width: 500px;
     height: 25px;
   }
-
 
   .carrier {
     background-color: blue;
