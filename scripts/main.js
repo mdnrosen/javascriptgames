@@ -128,12 +128,8 @@ $(() => {
     }
   })
   // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
   //************************************PLAYER SHIPS PLACEMENT*****************************************
-  const userCarrier = document.querySelector('.carrier')
-  const userBattleship = document.querySelector('.battleship')
-  const userCruiser = document.querySelector('.cruiser')
-  const userSubmarine = document.querySelector('.submarine')
-  const userDestroyer = document.querySelector('.destroyer')
 
   const vert = document.querySelector('.vertical')
   const horiz = document.querySelector('.horizontal')
@@ -157,9 +153,18 @@ $(() => {
     console.log(vertclick)
   })
 
-  function placeMyShips(shipType) {
+  const myShips = document.querySelectorAll('.ships')
+  function selectShip() {
+    let currentShip = null
+    myShips.forEach(ship => ship.addEventListener('click', (e) => {
+      currentShip = e.target
+      console.log(e.target)
+    }))
+  }
+
+  function placeMyShip(shipType) {
     playerMap.forEach(square => square.addEventListener('click', (e) => {
-      let myAnchor = e.target.value
+      let myAnchor = e.target
       if (horizclick === true) {
         for (let i = 1; i < shipType.shipLength; i++) {
           myAnchor++
@@ -174,26 +179,6 @@ $(() => {
     }))
   }
   console.log(mapSize)
-
-
-
-
-
-
-
-
-
-  //
-  // function placeMyShip(shipType) {
-  //   if ( acrossOrDown === down) {
-  //   for (let i = 1; i < shipType.shipLength; i++) {
-  //         myAnchor += 10
-  //         mapSize[myAnchor] = shipType
-  //       } if else ( acrossOrDown === across) {
-  //         console.log(myAnchor)
-  //         e.target.style.background = 'white'
-  //       }
-  // }
 
 
 
