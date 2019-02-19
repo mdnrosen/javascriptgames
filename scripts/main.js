@@ -27,6 +27,7 @@ $(() => {
     for (let i = 0; i < mapSize.length ; i++) {
       const grid = document.createElement('div')
       grid.setAttribute('class','grid-item')
+      grid.setAttribute('data-id',i)
       map.appendChild(grid)
       playerMap.push(grid)
     }
@@ -107,7 +108,24 @@ $(() => {
     placeShip(submarine)
     placeShip(destroyer)
     cpuPlaceShips.style.visibility = 'hidden'
-    console.log(radarSize)
+    //=========MAKING CPU SHIPS SHOW ON RADAR=========================
+    const $radarItems = $('.radar-item')
+    for (let i = 0; i < radarSize.length; i++) {
+      if (radarSize[i] === carrier) {
+        $radarItems.eq(i).addClass('carrier')
+      } else if (radarSize[i] === battleship) {
+        $radarItems.eq(i).addClass('battleship')
+      } else if (radarSize[i] === cruiser) {
+        $radarItems.eq(i).addClass('cruiser')
+      } else if (radarSize[i] === submarine) {
+        $radarItems.eq(i).addClass('submarine')
+      } else if (radarSize[i] === destroyer) {
+        $radarItems.eq(i).addClass('destroyer')
+      }
+      //====================================================================
+      console.log(radarSize)
+      console.log(occupiedRadar)
+    }
   })
   // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
   //************************************PLAYER SHIPS PLACEMENT*****************************************
@@ -139,7 +157,10 @@ $(() => {
   // placeMyShip(mySubmarine)
   // placeMyShip(myDestroyer)
 
-
+  playerMap.forEach(square => square.addEventListener('click', (e) => {
+    const myAnchor = e.target
+    placeMyShip(myCarrier)
+  }))
 
   // ************************************************************************************************
 
@@ -150,11 +171,21 @@ $(() => {
   //   mapSize[mapTarget].style.background = 'red'
   //
   //   console.log('fire captain!')
-  // })
+  // }
 
-  cpuMap.forEach(square => square.addEventListener('click', (e) => {
-    console.log(e.target.dataset.id)
-  }))
+
+
+
+
+
+  //   cpuMap.forEach(square => square.addEventListener('click', (e) => {
+  //   console.log(e.target.dataset.id)
+  //   if (e.target === class('')) {
+  //     e.target.style.background = 'red'
+  //   } else {
+  //     e.target.style.background = 'white'
+  //   }
+  // }))
 
 
 
