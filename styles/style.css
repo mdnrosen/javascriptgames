@@ -34,7 +34,9 @@ body {
   width: 599px;
   height: 600px;
   display: flex;
-  justify-content: space-between;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
   border: 1px solid white;
   background-image: url('ocean-background.jpg');
   background-size: cover;
@@ -54,6 +56,7 @@ body {
   background-color: papayawhip;
   color: black;
   justify-content: flex-end;
+  width:
 }
 
 .divide p {
@@ -74,7 +77,7 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  margin: auto;
+  margin: 20px;
 }
 
 .radar {
@@ -91,32 +94,70 @@ body {
     height: 44px;
     width: 44px;
     border: 1px solid black;
-
   }
 
+.grid-item:mouseIn {
+  background-color: rgba(192, 192, 192, 0.1);
+}
   .radar-item {
     height: 35px;
     width: 35px;
     border: 1px solid black;
   }
 
+
+
+
+  .direction {
+    display: flex;
+    justify-content: space-between;
+  }
+
+    .across, .down {
+      width: 150px;
+      height: 30px;
+      outline: none;
+    }
   /* THE SHIPS */
+  .ships {
+    display: flex;
+    justify-content: space-around;
+    width: 500px;
+    height: 25px;
+  }
+
+
   .carrier {
     background-color: blue;
+    font-size: 15px;
+    padding: 5px 5px 0 5px;
+    border-radius: 5px;
   }
 
   .battleship {
     background-color: red;
+    font-size: 15px;
+    padding: 5px 5px 0 5px;
+    border-radius: 5px;
   }
 
   .cruiser {
     background-color: green;
+    font-size: 15px;
+    padding: 5px 5px 0 5px;
+    border-radius: 5px;
   }
 
   .submarine {
-    background-color: yellow;
+    background-color: brown;
+    font-size: 15px;
+    padding: 5px 5px 0 5px;
+    border-radius: 5px;
   }
 
-  .submarine {
+  .destroyer {
     background-color: grey;
+    font-size: 15px;
+    padding: 5px 5px 0 5px;
+    border-radius: 5px;
   }
