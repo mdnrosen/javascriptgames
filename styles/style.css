@@ -112,7 +112,7 @@ body {
     justify-content: space-between;
   }
 
-    .across, .down {
+    .horizontal, .vertical {
       width: 150px;
       height: 30px;
       outline: none;

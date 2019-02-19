@@ -135,32 +135,67 @@ $(() => {
   const userSubmarine = document.querySelector('.submarine')
   const userDestroyer = document.querySelector('.destroyer')
 
+  const vert = document.querySelector('.vertical')
+  const horiz = document.querySelector('.horizontal')
+  let horizclick = false
+  let vertclick = false
 
-  // function placeMyShip(shipType) {
-  //   let myAnchor = point where clicked
-  //   if (user choses vertical) {
-  //     for (let i = 1; i < shipType.shipLength; i++) {
-  //       myAnchor += 10
-  //       mapSize[myAnchor] = shipType
-  //       change background of each square to denote ship position
-  //   } else if (user choses horizontal) {
-  //     for (let i = 0; i < shipType.shipLength; i++) {
-  //       myAnchor ++
-  //       mapSize[myAnchor] = shipType
-  //       change background of each square to denote ship position
-  //   }
-  // }
+  vert.addEventListener('click', () => {
+    vert.style.border = '2px solid black'
+    horiz.style.border = 'none'
+    horizclick = false
+    vertclick = true
+    console.log(horizclick)
+    console.log(vertclick)
+  })
+  horiz.addEventListener('click', () => {
+    horiz.style.border = '2px solid black'
+    vert.style.border = 'none'
+    horizclick = true
+    vertclick = false
+    console.log(horizclick)
+    console.log(vertclick)
+  })
+
+  function placeMyShips(shipType) {
+    playerMap.forEach(square => square.addEventListener('click', (e) => {
+      let myAnchor = e.target.value
+      if (horizclick === true) {
+        for (let i = 1; i < shipType.shipLength; i++) {
+          myAnchor++
+          mapSize[myAnchor] = shipType
+        }
+      } if (vertclick === true) {
+        for (let i = 1; i < shipType.shipLength; i++) {
+          myAnchor += 10
+          mapSize[myAnchor] = shipType
+        }
+      }
+    }))
+  }
+  console.log(mapSize)
+
+
+
+
+
+
+
+
+
   //
-  // placeMyShip(myCarrier)
-  // placeMyShip(myBattleship)
-  // placeMyShip(myCruiser)
-  // placeMyShip(mySubmarine)
-  // placeMyShip(myDestroyer)
+  // function placeMyShip(shipType) {
+  //   if ( acrossOrDown === down) {
+  //   for (let i = 1; i < shipType.shipLength; i++) {
+  //         myAnchor += 10
+  //         mapSize[myAnchor] = shipType
+  //       } if else ( acrossOrDown === across) {
+  //         console.log(myAnchor)
+  //         e.target.style.background = 'white'
+  //       }
+  // }
 
-  playerMap.forEach(square => square.addEventListener('click', (e) => {
-    const myAnchor = e.target
-    placeMyShip(myCarrier)
-  }))
+
 
   // ************************************************************************************************
 
@@ -168,7 +203,7 @@ $(() => {
   // const cpuFire = document.querySelector('.cpufire')
   // cpuFire.addEventListener('click', () => {
   //   const mapTarget = Math.floor((Math.random() * 100))
-  //   mapSize[mapTarget].style.background = 'red'
+  //   mapSize[mapTarget].style.background = 'black'
   //
   //   console.log('fire captain!')
   // }
@@ -180,7 +215,7 @@ $(() => {
 
   //   cpuMap.forEach(square => square.addEventListener('click', (e) => {
   //   console.log(e.target.dataset.id)
-  //   if (e.target === class('')) {
+  //   if (e.target === class('Ship')) {
   //     e.target.style.background = 'red'
   //   } else {
   //     e.target.style.background = 'white'
