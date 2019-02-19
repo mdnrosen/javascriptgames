@@ -151,17 +151,21 @@ $(() => {
     vertclick = false
     console.log(horizclick)
     console.log(vertclick)
-  })
 
-  const myShips = document.querySelectorAll('.ships')
+  })
+  let currentShip = null
+  const myShips = document.querySelectorAll('.myship')
+  const listOfShips = [myCarrier,myBattleship,myCruiser,mySubmarine,myDestroyer]
   function selectShip() {
-    let currentShip = null
     myShips.forEach(ship => ship.addEventListener('click', (e) => {
       currentShip = e.target
-      console.log(e.target)
+      console.log(currentShip)
+      for (let i = 0; i < listOfShips.length; i++) {
+        currentShip = listOfShips[i]
+      }
     }))
   }
-
+  selectShip()
   function placeMyShip(shipType) {
     playerMap.forEach(square => square.addEventListener('click', (e) => {
       let myAnchor = e.target
@@ -178,6 +182,7 @@ $(() => {
       }
     }))
   }
+  placeMyShip(currentShip)
   console.log(mapSize)
 
 

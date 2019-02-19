@@ -88,6 +88,7 @@ body {
   justify-content: flex-end;
   margin-bottom: 40px;
   background-image: url('radar.jpg');
+  background-size: cover;
 }
 
 .grid-item {
@@ -96,8 +97,9 @@ body {
     border: 1px solid black;
   }
 
-.grid-item : hover {
-  background-color: rgba(192, 192, 192, 0.1);
+.grid-item:hover {
+  background-color: rgba(192, 192, 192, 0.4);
+  cursor: crosshair;
 }
   .radar-item {
     height: 35px;
@@ -105,7 +107,10 @@ body {
     border: 1px solid black;
   }
 
-  .radar-item: hover
+  .radar-item:hover {
+    background-color: rgba(199, 234, 70, 0.4);
+    cursor: crosshair;
+  }
 
   .direction {
     display: flex;
