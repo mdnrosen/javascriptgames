@@ -44,8 +44,6 @@ $(() => {
   })
 
 
-
-
   // SHIP CREATION
 
   class Ship {
@@ -56,7 +54,6 @@ $(() => {
       this.shipSunk = shipSunk
     }
   }
-
   const carrier = new Ship('carrier',5,5,false)
   const battleship = new Ship('battleship',4,4,false)
   const cruiser = new Ship('cruiser',3,3,false)
@@ -73,11 +70,12 @@ $(() => {
 
   // RANDOM NUMBER GENERATORS & LOGIC
 
-  const haCarrier = function() {
-    return Math.floor((Math.random() * 100)) % 10
-  }
-
-
+  // function haCarrier() {
+  const haCarrier = Math.floor((Math.random() * 100)) % 10
+  const haBattleship = Math.floor((Math.random() * 100)) % 10
+  const haCruiser = Math.floor((Math.random() * 100)) % 10
+  const haSubmarine = Math.floor((Math.random() * 100)) % 10
+  const haDestroyer = Math.floor((Math.random() * 100)) % 10
 
   // const haBattleship
   // const haCruiser
@@ -101,23 +99,27 @@ $(() => {
         radarSize[vaCarrier + (i * 10)] = carrier
       } //stop occupied squares being used
     } else if (haCarrier > carrier.shipLength) {
-      placeCarrier()
-    } else {
       for (let i = 0; i < carrier.shipLength; i++) {
         radarSize[haCarrier + (i + 1)] = carrier
-        //stop occupied squares being used
       }
+    } else {
+      placeCarrier()
+      //stop occupied squares being used
     }
   }
-
   function placeBattleship() {
     if (horizVert() === 1) {
       radarSize[vaBattleShip] = battleship
       for (let i = 0; i < battleship.shipLength; i++) {
         radarSize[vaBattleShip + (i * 10)] = battleship
+      } // stop occupied squares being used
+    } else if (haBattleship > battleship.shipLength) {
+      for (let i = 0; i < battleship.shipLength; i++) {
+        radarSize[haBattleship + (i + 1)] = battleship
       }
     } else {
-      console.log('horizontal')
+      placeBattleship()
+      //stop occupied squares being used
     }
   }
   function placeCruiser() {
@@ -125,10 +127,14 @@ $(() => {
       radarSize[vaCruiser] = cruiser
       for (let i = 0; i < cruiser.shipLength; i++) {
         radarSize[vaCruiser + (i * 10)] = cruiser
+      } // stop occupied squares being used
+    } else if (haCruiser > cruiser.shipLength) {
+      for (let i = 0; i < cruiser.shipLength; i++) {
+        radarSize[haCruiser + (i + 1)] = cruiser
       }
-      // radarSize.cruiser.style.background = 'red'
     } else {
-      console.log('horizontal')
+      placeCruiser()
+      //stop occupied squares being used
     }
   }
   function placeSubmarine() {
@@ -137,8 +143,13 @@ $(() => {
       for (let i = 0; i < submarine.shipLength; i++) {
         radarSize[vaSubmarine + (i * 10)] = submarine
       }
+    } else if (haSubmarine > submarine.shipLength) {
+      for (let i = 0; i < submarine.shipLength; i++) {
+        radarSize[haSubmarine + (i + 1)] = submarine
+      }
     } else {
-      console.log('horizontal')
+      placeSubmarine()
+      //stop occupied squares being used
     }
   }
   function placeDestroyer() {
@@ -147,8 +158,13 @@ $(() => {
       for (let i = 0; i < destroyer.shipLength; i++) {
         radarSize[vaDestroyer + (i * 10)] = destroyer
       }
+    } else if (haDestroyer > destroyer.shipLength) {
+      for (let i = 0; i < destroyer.shipLength; i++) {
+        radarSize[haDestroyer + (i + 1)] = destroyer
+      }
     } else {
-      console.log('horizontal')
+      placeDestroyer()
+      //stop occupied squares being used
     }
   }
 
