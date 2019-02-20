@@ -5,6 +5,7 @@ $(() => {
   const startButton = document.querySelector('.start')
   const mainGame = document.querySelector('.maingame')
   const $bang = $('.bang')
+  const $splash = $('.splash')
   // MAKE THE START BUTTON DISAPPEAR AND STUFF
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
@@ -48,11 +49,12 @@ $(() => {
 
   // ------------------------------SHIP CREATION-------------------------------------------------
   class Ship {
-    constructor(shipType,hitPoints, shipLength, shipSunk) {
+    constructor(shipType,hitPoints, shipLength, shipSunk, crew) {
       this.shipType = shipType,
       this.hitPoints = hitPoints,
       this.shipLength = shipLength,
       this.shipSunk = shipSunk
+      this.crew = crew
     }
     haShip() {
       return Math.floor((Math.random() * 100)) % (10 - this.shipLength)
@@ -64,18 +66,17 @@ $(() => {
       return Math.floor((Math.random() * 2))
     }
   }
-  const carrier = new Ship('carrier',5,5,false)
-  const battleship = new Ship('battleship',4,4,false)
-  const cruiser = new Ship('cruiser',3,3,false)
-  const submarine = new Ship('submarine',3,3,false)
-  const destroyer = new Ship('destroyer',2,2,false)
+  const carrier = new Ship('carrier',5,5,false, 6324)
+  const battleship = new Ship('battleship',4,4,false, 862)
+  const cruiser = new Ship('cruiser',3,3,false, 377)
+  const submarine = new Ship('submarine',3,3,false, 134)
+  const destroyer = new Ship('destroyer',2,2,false, 61)
 
-  const myCarrier = new Ship('carrier',5,5,false)
-  const myBattleship = new Ship('battleship',4,4,false)
-  const myCruiser = new Ship('cruiser',3,3,false)
-  const mySubmarine = new Ship('submarine',3,3,false)
-  const myDestroyer = new Ship('destroyer',2,2,false)
-
+  const myCarrier = new Ship('carrier',5,5,false, 5823)
+  const myBattleship = new Ship('battleship',4,4,false, 921)
+  const myCruiser = new Ship('cruiser',3,3,false, 354)
+  const mySubmarine = new Ship('submarine',3,3,false, 122)
+  const myDestroyer = new Ship('destroyer',2,2,false, 68)
 
   //------------------------------------------------------------------------------------------------
 
@@ -214,29 +215,28 @@ $(() => {
 
 
 
-  //############################################ - SHOOTING - ############################################
-  // const cpuFire = document.querySelector('.cpufire')
-  // cpuFire.addEventListener('click', () => {
-  //   const mapTarget = Math.floor((Math.random() * 100))
+  //###################################### - SHOOTING - ########################################
+
+
+  const cpuFire = document.querySelector('.cpufire')
+  cpuFire.addEventListener('click', () => {
+    const $mapItems = $('.grid-item')
+    const random = Math.floor((Math.random() * 100))
+    const targetMap = parseInt(random.target.dataset.id)
+    console.log(targetMap)
+    if (mapSize[targetMap]) {
+      mapSize[targetMap].hitPoints--
+      $bang[0].play()
+      $mapItems.eq(targetMap).addClass('hit')
+    }
+  })
 
   //
   //   console.log('fire captain!')
   // }
 
 
-  // function miss(e) {
-  //   e.target.classList.addClass('miss')
-  // }
-  //
-  //
-  function checkForWin() {
 
-  }
-  //   }
-  // }
-  //
-  //
-  //
 
   const $radarItems = $('.radar-item')
   $radarItems.on('click',(e) => {
@@ -247,11 +247,14 @@ $(() => {
       $radarItems.eq(targetedSq).addClass('hit')
       if (radarSize[targetedSq].hitPoints === 0) {
         radarSize[targetedSq].shipSunk = true
-        setTimeout($textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType}`),1000)
+        // $radarItems[targetedSq].shipType.removeClass('hit')
+        // $radarItems[targetedSq].shipType.addClass('sunk')
+        $textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType}. A crew of  ${radarSize[targetedSq].crew} was on board. There were no survivors.`)
       }
     } else {
       $radarItems.eq(targetedSq).addClass('miss')
       console.log('MISSED!')
+      $splash[0].play()
     }
     console.log(radarSize)
   })
