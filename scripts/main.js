@@ -1,15 +1,15 @@
 $(() => {
 
   // VARIABLES TO MANIPULATE FOR CLICKEVENT
-  const textBox = document.querySelector('.textbox')
+  const $textBox = $('.textbox')
   const startButton = document.querySelector('.start')
   const mainGame = document.querySelector('.maingame')
-
+  const $bang = $('.bang')
   // MAKE THE START BUTTON DISAPPEAR AND STUFF
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     mainGame.style.display = 'flex'
-    textBox.innerHTML = 'Welcome to BATTLESHIPS'
+    $textBox.text('Welcome to BATTLESHIPS')
   })
 
   const mapSize = new Array(100)
@@ -110,23 +110,24 @@ $(() => {
     placeShip(destroyer)
     console.log(radarSize)
     cpuPlaceShips.style.visibility = 'hidden'
-    //=========MAKING CPU SHIPS SHOW ON RADAR=========================
-    const $radarItems = $('.radar-item')
-    for (let i = 0; i < radarSize.length; i++) {
-      if (radarSize[i] === carrier) {
-        $radarItems.eq(i).addClass('carrier')
-      } else if (radarSize[i] === battleship) {
-        $radarItems.eq(i).addClass('battleship')
-      } else if (radarSize[i] === cruiser) {
-        $radarItems.eq(i).addClass('cruiser')
-      } else if (radarSize[i] === submarine) {
-        $radarItems.eq(i).addClass('submarine')
-      } else if (radarSize[i] === destroyer) {
-        $radarItems.eq(i).addClass('destroyer')
-      }
-      //====================================================================
-    }
   })
+  //=========MAKING CPU SHIPS SHOW ON RADAR=========================
+  // const $radarItems = $('.radar-item')
+  // for (let i = 0; i < radarSize.length; i++) {
+  //   if (radarSize[i] === carrier) {
+  //     $radarItems.eq(i).addClass('carrier')
+  //   } else if (radarSize[i] === battleship) {
+  //     $radarItems.eq(i).addClass('battleship')
+  //   } else if (radarSize[i] === cruiser) {
+  //     $radarItems.eq(i).addClass('cruiser')
+  //   } else if (radarSize[i] === submarine) {
+  //     $radarItems.eq(i).addClass('submarine')
+  //   } else if (radarSize[i] === destroyer) {
+  //     $radarItems.eq(i).addClass('destroyer')
+  //   }
+  //====================================================================
+
+
   // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
   //************************************PLAYER SHIPS PLACEMENT*****************************************
@@ -198,7 +199,7 @@ $(() => {
     for (let i = 0; i < mapSize.length; i++) {
       if (mapSize[i] === myCarrier) {
         $mapItems.eq(i).addClass('carrier')
-        $playerCarrier.style='visibility: hidden;'
+        $playerCarrier.style='display: none;'
       } else if (mapSize[i] === myBattleship) {
         $mapItems.eq(i).addClass('battleship')
       } else if (mapSize[i] === myCruiser) {
@@ -209,8 +210,6 @@ $(() => {
         $mapItems.eq(i).addClass('destroyer')
       }
     }
-
-
   })
 
 
@@ -219,7 +218,7 @@ $(() => {
   // const cpuFire = document.querySelector('.cpufire')
   // cpuFire.addEventListener('click', () => {
   //   const mapTarget = Math.floor((Math.random() * 100))
-  //   mapSize[mapTarget].style.background = 'black'
+
   //
   //   console.log('fire captain!')
   // }
@@ -230,25 +229,33 @@ $(() => {
   // }
   //
   //
-  // function isShipSunk() {
-  //   if (Ship.hitPoints === 0) {
-  //     this.shipSunk = true
-  //     Ship.classList.addClass('sunk')
+  function checkForWin() {
+
+  }
   //   }
   // }
   //
   //
   //
-  //   cpuMap.forEach(square => square.addEventListener('click', (e) => {
-  //   console.log(e.target.dataset.id)
-  //   function isShipSunk()
-  //   if (e.target.classList.hasClass === class('Ship')) {
-  //     e.target.classList.addClass = 'hit'
-  //     shipType.hitPoints--
-  //   } else {
-  //     e.target.style.background = 'white'
-  //   }
-  // }))
+
+  const $radarItems = $('.radar-item')
+  $radarItems.on('click',(e) => {
+    const targetedSq = parseInt(e.target.dataset.id)
+    if (radarSize[targetedSq]) {
+      radarSize[targetedSq].hitPoints--
+      $bang[0].play()
+      $radarItems.eq(targetedSq).addClass('hit')
+      if (radarSize[targetedSq].hitPoints === 0) {
+        radarSize[targetedSq].shipSunk = true
+        setTimeout($textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType}`),1000)
+      }
+    } else {
+      $radarItems.eq(targetedSq).addClass('miss')
+      console.log('MISSED!')
+    }
+    console.log(radarSize)
+  })
+
 
 
 

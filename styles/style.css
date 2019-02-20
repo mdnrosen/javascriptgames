@@ -68,6 +68,8 @@ body {
   height: 100px;
   width: 200px;
   border: 1px solid white;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* THE GRIDS */
@@ -173,13 +175,15 @@ body {
   .miss {
     background-image: url('miss.jpg');
     background-size: contain;
+    border-radius: 6px;
   }
 
 
   .hit {
-    background-image:url('explosion.jpg');
+    background-image:url('bang.jpg');
     background-position: center;
     background-size: cover;
+    border-radius: 6px;
   }
   .sunk {
     background-color: rgba(0, 0, 0, 0.2);
