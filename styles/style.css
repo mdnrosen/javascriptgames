@@ -130,6 +130,10 @@ body {
     height: 25px;
   }
 
+  .ships:hover {
+    cursor: pointer;
+  }
+
   .carrier {
     background-color: blue;
     font-size: 15px;
@@ -152,8 +156,9 @@ body {
   }
 
   .submarine {
-    background-color: brown;
+    background-color: purple;
     font-size: 15px;
+    border-radius: 10px;
     padding: 5px 5px 0 5px;
     border-radius: 5px;
   }
@@ -163,6 +168,21 @@ body {
     font-size: 15px;
     padding: 5px 5px 0 5px;
     border-radius: 5px;
+  }
+
+  .miss {
+    background-image: url('miss.jpg');
+    background-size: contain;
+  }
+
+
+  .hit {
+    background-image:url('explosion.jpg');
+    background-position: center;
+    background-size: cover;
+  }
+  .sunk {
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   /* .hit {

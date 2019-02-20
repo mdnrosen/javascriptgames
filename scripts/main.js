@@ -88,7 +88,7 @@ $(() => {
         vaPoint += 10
         radarSize[vaPoint] = shipType
       } occupiedRadar.push(shipType)
-    } else if (shipType.haShip() > shipType.shipLength) {
+    } else if (shipType.haShip() < shipType.shipLength) {
       let haPoint = shipType.haShip()
       for (let i = 0; i < shipType.shipLength; i++) {
         haPoint ++
@@ -123,13 +123,18 @@ $(() => {
         $radarItems.eq(i).addClass('destroyer')
       }
       //====================================================================
-      console.log(radarSize)
-      console.log(occupiedRadar)
     }
   })
   // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
   //************************************PLAYER SHIPS PLACEMENT*****************************************
+
+
+  const playerCarrier = document.querySelector('.carrier')
+  const playerBattleShip = document.querySelector('.battleship')
+  const playerCruiser = document.querySelector('.cruiser')
+  const playerSubmarine = document.querySelector('.submarine')
+  const playerDestroyer = document.querySelector('.destroyer')
 
   const vert = document.querySelector('.vertical')
   const horiz = document.querySelector('.horizontal')
@@ -151,39 +156,107 @@ $(() => {
     vertclick = false
     console.log(horizclick)
     console.log(vertclick)
-
   })
-  let currentShip = null
-  const myShips = document.querySelectorAll('.myship')
-  const listOfShips = [myCarrier,myBattleship,myCruiser,mySubmarine,myDestroyer]
-  function selectShip() {
-    myShips.forEach(ship => ship.addEventListener('click', (e) => {
-      currentShip = e.target
-      console.log(currentShip)
-      for (let i = 0; i < listOfShips.length; i++) {
-        currentShip = listOfShips[i]
-      }
-    }))
-  }
-  selectShip()
-  function placeMyShip(shipType) {
+
+
+  // const myAnchor =
+  // playerMap.forEach(square => square.addEventListener('click', (e) => {
+  //   let myAnchor = e.target
+  //   console.log(myAnchor)
+  // }))
+
+
+  let myAnchor = function() {
     playerMap.forEach(square => square.addEventListener('click', (e) => {
-      let myAnchor = e.target
-      if (horizclick === true) {
-        for (let i = 1; i < shipType.shipLength; i++) {
-          myAnchor++
-          mapSize[myAnchor] = shipType
-        }
-      } if (vertclick === true) {
-        for (let i = 1; i < shipType.shipLength; i++) {
-          myAnchor += 10
-          mapSize[myAnchor] = shipType
-        }
-      }
+      return e.target
     }))
   }
-  placeMyShip(currentShip)
+
+  console.log(myAnchor)
+
+  const clickedDiv = document.querySelectorAll('clickedDiv')
+  console.log(clickedDiv, 'this is clicked div')
+
+  function placeMyCarrier() {
+    if (horizclick === true) {
+      for (let i = 1; i < myCarrier.shipLength; i++) {
+        myAnchor++
+        mapSize[myAnchor] = myCarrier
+      }
+    } else if (vertclick === true) {
+      for (let i = 1; i < myCarrier.shipLength; i++) {
+        myAnchor += 10
+        mapSize[myAnchor] = myCarrier
+      }
+    }
+  }
+
+
+
+
+  // function placeMyCarrier() {
+  //
+  // }
+
+
+
+
   console.log(mapSize)
+  //++++++++++++++++++++++++++++++++++SHOW PLAYER SHIPS++++++++++++++++++++++++++++++++++++++++++++
+
+  const $mapItems = $('.grid-item')
+  for (let i = 0; i < mapSize.length; i++) {
+    if (mapSize[i] === myCarrier) {
+      $mapItems.eq(i).addClass('carrier')
+    } else if (mapSize[i] === myBattleship) {
+      $mapItems.eq(i).addClass('battleship')
+    } else if (mapSize[i] === myCruiser) {
+      $mapItems.eq(i).addClass('cruiser')
+    } else if (mapSize[i] === mySubmarine) {
+      $mapItems.eq(i).addClass('submarine')
+    } else if (mapSize[i] === myDestroyer) {
+      $mapItems.eq(i).addClass('destroyer')
+    }
+  }
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  playerCarrier.addEventListener('click', () => {
+    console.log('clicked')
+    placeMyCarrier()
+    // playerCarrier.style.visibility = 'hidden'
+  })
+
+
+  // let currentShip = null
+  // const myShips = document.querySelectorAll('.myship')
+  // const listOfShips = [myCarrier,myBattleship,myCruiser,mySubmarine,myDestroyer]
+  // function selectShip() {
+  //   myShips.forEach(ship => ship.addEventListener('click', (e) => {
+  //     currentShip = e.target
+  //     console.log(currentShip)
+  //     for (let i = 0; i < listOfShips.length; i++) {
+  //       currentShip = listOfShips[i]
+  //     }
+  //   }))
+  // }
+  // selectShip()
+  // function placeMyShip(shipType) {
+  //   playerMap.forEach(square => square.addEventListener('click', (e) => {
+  //     let myAnchor = e.target
+  //     if (horizclick === true) {
+  //       for (let i = 1; i < shipType.shipLength; i++) {
+  //         myAnchor++
+  //         mapSize[myAnchor] = shipType
+  //       }
+  //     } if (vertclick === true) {
+  //       for (let i = 1; i < shipType.shipLength; i++) {
+  //         myAnchor += 10
+  //         mapSize[myAnchor] = shipType
+  //       }
+  //     }
+  //   }))
+  // }
+  // placeMyShip(currentShip)
+  // console.log(mapSize)
 
 
 
@@ -199,14 +272,26 @@ $(() => {
   // }
 
 
-
-
-
-
+  // function miss(e) {
+  //   e.target.classList.addClass('miss')
+  // }
+  //
+  //
+  // function isShipSunk() {
+  //   if (Ship.hitPoints === 0) {
+  //     this.shipSunk = true
+  //     Ship.classList.addClass('sunk')
+  //   }
+  // }
+  //
+  //
+  //
   //   cpuMap.forEach(square => square.addEventListener('click', (e) => {
   //   console.log(e.target.dataset.id)
-  //   if (e.target === class('Ship')) {
-  //     e.target.style.background = 'red'
+  //   function isShipSunk()
+  //   if (e.target.classList.hasClass === class('Ship')) {
+  //     e.target.classList.addClass = 'hit'
+  //     shipType.hitPoints--
   //   } else {
   //     e.target.style.background = 'white'
   //   }
