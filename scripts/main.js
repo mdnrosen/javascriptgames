@@ -21,6 +21,7 @@ $(() => {
   const occupiedMap = []
   const occupiedRadar = []
 
+
   //MAKE MY MAP AND RADAR
   const map = document.querySelector('.map')
   function makeMap() {
@@ -29,7 +30,7 @@ $(() => {
       grid.setAttribute('class','grid-item')
       grid.setAttribute('data-id',i)
       map.appendChild(grid)
-      playerMap.push(grid)
+      // playerMap.push(grid)
     }
   }
   makeMap()
@@ -54,7 +55,7 @@ $(() => {
       this.shipSunk = shipSunk
     }
     haShip() {
-      return Math.floor((Math.random() * 100)) % 10
+      return Math.floor((Math.random() * 100)) % (10 - this.shipLength)
     }
     vaShip() {
       return Math.floor((Math.random() * (100 - (this.shipLength * 10) + 10)))
@@ -107,6 +108,7 @@ $(() => {
     placeShip(cruiser)
     placeShip(submarine)
     placeShip(destroyer)
+    console.log(radarSize)
     cpuPlaceShips.style.visibility = 'hidden'
     //=========MAKING CPU SHIPS SHOW ON RADAR=========================
     const $radarItems = $('.radar-item')
@@ -130,11 +132,11 @@ $(() => {
   //************************************PLAYER SHIPS PLACEMENT*****************************************
 
 
-  const playerCarrier = document.querySelector('.carrier')
-  const playerBattleShip = document.querySelector('.battleship')
-  const playerCruiser = document.querySelector('.cruiser')
-  const playerSubmarine = document.querySelector('.submarine')
-  const playerDestroyer = document.querySelector('.destroyer')
+  const $playerCarrier = $('.carrier')
+  const $playerBattleShip = $('.battleship')
+  const $playerCruiser = $('.cruiser')
+  const $playerSubmarine = $('.submarine')
+  const $playerDestroyer = $('.destroyer')
 
   const vert = document.querySelector('.vertical')
   const horiz = document.querySelector('.horizontal')
@@ -146,121 +148,72 @@ $(() => {
     horiz.style.border = 'none'
     horizclick = false
     vertclick = true
-    console.log(horizclick)
-    console.log(vertclick)
   })
   horiz.addEventListener('click', () => {
     horiz.style.border = '2px solid black'
     vert.style.border = 'none'
     horizclick = true
     vertclick = false
-    console.log(horizclick)
-    console.log(vertclick)
   })
 
+  let currentShip
 
-  // const myAnchor =
-  // playerMap.forEach(square => square.addEventListener('click', (e) => {
-  //   let myAnchor = e.target
-  //   console.log(myAnchor)
-  // }))
-
-
-  let myAnchor = function() {
-    playerMap.forEach(square => square.addEventListener('click', (e) => {
-      return e.target
-    }))
-  }
-
-  console.log(myAnchor)
-
-  const clickedDiv = document.querySelectorAll('clickedDiv')
-  console.log(clickedDiv, 'this is clicked div')
-
-  function placeMyCarrier() {
-    if (horizclick === true) {
-      for (let i = 1; i < myCarrier.shipLength; i++) {
-        myAnchor++
-        mapSize[myAnchor] = myCarrier
-      }
-    } else if (vertclick === true) {
-      for (let i = 1; i < myCarrier.shipLength; i++) {
-        myAnchor += 10
-        mapSize[myAnchor] = myCarrier
-      }
-    }
-  }
-
-
-
-
-  // function placeMyCarrier() {
-  //
-  // }
-
-
-
-
-  console.log(mapSize)
-  //++++++++++++++++++++++++++++++++++SHOW PLAYER SHIPS++++++++++++++++++++++++++++++++++++++++++++
+  $playerCarrier.on('click', () => {
+    currentShip = myCarrier
+    console.log(currentShip)
+  })
+  $playerBattleShip.on('click', () => {
+    currentShip = myBattleship
+    console.log(currentShip)
+  })
+  $playerCruiser.on('click', () => {
+    currentShip = myCruiser
+    console.log(currentShip)
+  })
+  $playerSubmarine.on('click', () => {
+    currentShip = mySubmarine
+    console.log(currentShip)
+  })
+  $playerDestroyer.on('click', () => {
+    currentShip = myDestroyer
+    console.log(currentShip)
+  })
 
   const $mapItems = $('.grid-item')
-  for (let i = 0; i < mapSize.length; i++) {
-    if (mapSize[i] === myCarrier) {
-      $mapItems.eq(i).addClass('carrier')
-    } else if (mapSize[i] === myBattleship) {
-      $mapItems.eq(i).addClass('battleship')
-    } else if (mapSize[i] === myCruiser) {
-      $mapItems.eq(i).addClass('cruiser')
-    } else if (mapSize[i] === mySubmarine) {
-      $mapItems.eq(i).addClass('submarine')
-    } else if (mapSize[i] === myDestroyer) {
-      $mapItems.eq(i).addClass('destroyer')
+  $mapItems.on('click',(e) => {
+    const myAnchor = parseInt(e.target.dataset.id)
+    if (horizclick === true && vertclick === false) {
+      for (let i = 0; i < currentShip.shipLength; i++) {
+        mapSize[myAnchor + i] = currentShip
+        console.log(mapSize)
+      }
+    } else if (vertclick === true && horizclick === false) {
+      for (let i = 0; i < currentShip.shipLength; i++) {
+        mapSize[myAnchor + (i * 10)] = currentShip
+        console.log(mapSize)
+      }
+    } else {
+      console.log('something broken')
     }
-  }
-  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  playerCarrier.addEventListener('click', () => {
-    console.log('clicked')
-    placeMyCarrier()
-    // playerCarrier.style.visibility = 'hidden'
+    for (let i = 0; i < mapSize.length; i++) {
+      if (mapSize[i] === myCarrier) {
+        $mapItems.eq(i).addClass('carrier')
+        $playerCarrier.style='visibility: hidden;'
+      } else if (mapSize[i] === myBattleship) {
+        $mapItems.eq(i).addClass('battleship')
+      } else if (mapSize[i] === myCruiser) {
+        $mapItems.eq(i).addClass('cruiser')
+      } else if (mapSize[i] === mySubmarine) {
+        $mapItems.eq(i).addClass('submarine')
+      } else if (mapSize[i] === myDestroyer) {
+        $mapItems.eq(i).addClass('destroyer')
+      }
+    }
+
+
   })
 
 
-  // let currentShip = null
-  // const myShips = document.querySelectorAll('.myship')
-  // const listOfShips = [myCarrier,myBattleship,myCruiser,mySubmarine,myDestroyer]
-  // function selectShip() {
-  //   myShips.forEach(ship => ship.addEventListener('click', (e) => {
-  //     currentShip = e.target
-  //     console.log(currentShip)
-  //     for (let i = 0; i < listOfShips.length; i++) {
-  //       currentShip = listOfShips[i]
-  //     }
-  //   }))
-  // }
-  // selectShip()
-  // function placeMyShip(shipType) {
-  //   playerMap.forEach(square => square.addEventListener('click', (e) => {
-  //     let myAnchor = e.target
-  //     if (horizclick === true) {
-  //       for (let i = 1; i < shipType.shipLength; i++) {
-  //         myAnchor++
-  //         mapSize[myAnchor] = shipType
-  //       }
-  //     } if (vertclick === true) {
-  //       for (let i = 1; i < shipType.shipLength; i++) {
-  //         myAnchor += 10
-  //         mapSize[myAnchor] = shipType
-  //       }
-  //     }
-  //   }))
-  // }
-  // placeMyShip(currentShip)
-  // console.log(mapSize)
-
-
-
-  // ************************************************************************************************
 
   //############################################ - SHOOTING - ############################################
   // const cpuFire = document.querySelector('.cpufire')
