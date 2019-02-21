@@ -10,7 +10,7 @@ $(() => {
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
     mainGame.style.display = ('bounce', 'flex')
-    $textBox.text('Pick your ship, choose the direction and place it. Then Place CPU Fleet, and away we go!')
+    $textBox.text('Place your ships, chosing the direction. Click commence war and take your first shot on the enemy radar.')
   })
 
   const mapSize = new Array(100)
@@ -99,35 +99,6 @@ $(() => {
   //------------------------------------------------------------------------------------------------
 
   //$$$$$$$$$$$$$$$$$$$$$$$$$$$$ - CPU SHIP PLACEMENT - $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-
-  // function placeShip(shipType) {
-  //   if (shipType.horizVert() === 1) {
-  //     let vaPoint = shipType.vaShip()
-  //     radarSize[vaPoint] = shipType
-  //     $radarItems.eq(vaPoint).addClass('enemyShip')
-  //     for (let i = 1; i < shipType.shipLength; i++) {
-  //       vaPoint += 10
-  //       radarSize[vaPoint] = shipType
-  //       $radarItems.eq(vaPoint).addClass('enemyShip')
-  //     }
-  //   } else if (shipType.haShip() < shipType.shipLength) {
-  //     let haPoint = shipType.haShip()
-  //     radarSize[haPoint] = shipType
-  //     $radarItems.eq(haPoint).addClass('enemyShip')
-  //     for (let i = 0; i < shipType.shipLength; i++) {
-  //       haPoint ++
-  //       radarSize[haPoint] = shipType
-  //       $radarItems.eq(haPoint).addClass('enemyShip')
-  //     }
-  //     // if ((radarSize[haPoint]).classList.contains('enemyShip')) placeShip(shipType)
-  //     // radarSize[haPoint] = shipType
-  //   } else {
-  //     // return placeShip(shipType)
-  //     //stop occupied squares being used
-  //   }
-  // }
-
   function checkSpaceVert(point, shipLength) {
     let check
     for(let i = 0; i < shipLength; i++) {
