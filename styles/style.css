@@ -77,6 +77,18 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+/********************** THE BUTTONS *******************************/
+
+button {
+  margin-top: 10px;
+  height: 40px;
+  font-family: inherit;
+  border: 1px solid white;
+  color: white;
+  font-size: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 /* THE GRIDS */
 .map {
   height: 450px;
@@ -127,14 +139,16 @@ body {
     .horizontal, .vertical {
       width: 150px;
       height: 30px;
+      margin: 5px;
       outline: none;
     }
-  /* THE SHIPS */
+  /* THE SHIPS & CLASSES */
   .ships {
     display: flex;
     justify-content: space-around;
     width: 500px;
     height: 25px;
+    padding-top: 2px;
   }
 
   .ships:hover {
@@ -147,6 +161,9 @@ body {
     padding: 5px 5px 0 5px;
     border-radius: 5px;
   }
+  .carrier:hover {
+    text-decoration: underline;
+  }
 
   .battleship {
     background-color: red;
@@ -154,12 +171,18 @@ body {
     padding: 5px 5px 0 5px;
     border-radius: 5px;
   }
+  .battleship:hover {
+    text-decoration: underline;
+  }
 
   .cruiser {
     background-color: green;
     font-size: 15px;
     padding: 5px 5px 0 5px;
     border-radius: 5px;
+  }
+  .cruiser:hover {
+    text-decoration: underline;
   }
 
   .submarine {
@@ -169,6 +192,9 @@ body {
     padding: 5px 5px 0 5px;
     border-radius: 5px;
   }
+  .submarine:hover {
+    text-decoration: underline;
+  }
 
   .destroyer {
     background-color: grey;
@@ -176,13 +202,15 @@ body {
     padding: 5px 5px 0 5px;
     border-radius: 5px;
   }
+  .destroyer:hover {
+    text-decoration: underline;
+  }
 
   .miss {
     background-image: url('miss.jpg');
     background-size: contain;
     border-radius: 6px;
   }
-
 
   .hit {
     background-image:url('bang.jpg');

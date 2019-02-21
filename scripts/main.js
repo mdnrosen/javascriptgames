@@ -9,14 +9,14 @@ $(() => {
   // MAKE THE START BUTTON DISAPPEAR AND STUFF
   startButton.addEventListener('click', () => {
     startButton.style.display = 'none'
-    mainGame.style.display = 'flex'
-    $textBox.text('Welcome to BATTLESHIPS')
+    mainGame.style.display = ('bounce', 'flex')
+    $textBox.text('Pick your ship, choose the direction and place it. Then Place CPU Fleet, and away we go!')
   })
 
   const mapSize = new Array(100)
   const radarSize = new Array(100)
-  const playerMap = []
-  const cpuMap = []
+  // const playerMap = []
+  // const cpuMap = []
   const usedMap = []
   const usedRadar = []
   const occupiedMap = []
@@ -42,7 +42,7 @@ $(() => {
       radarGrid.setAttribute('class','radar-item')
       radarGrid.setAttribute('data-id', i)
       radar.appendChild(radarGrid)
-      cpuMap.push(radarGrid)
+      // cpuMap.push(radarGrid)
     }
   }
   makeRadar()
@@ -128,11 +128,7 @@ $(() => {
   //   }
   //====================================================================
 
-
-  // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
   //************************************PLAYER SHIPS PLACEMENT*****************************************
-
 
   const $playerCarrier = $('.carrier')
   const $playerBattleShip = $('.battleship')
@@ -146,14 +142,14 @@ $(() => {
   let vertclick = false
 
   vert.addEventListener('click', () => {
-    vert.style.border = '2px solid black'
-    horiz.style.border = 'none'
+    vert.style.border = '3px solid white'
+    horiz.style.border = '1px solid white'
     horizclick = false
     vertclick = true
   })
   horiz.addEventListener('click', () => {
-    horiz.style.border = '2px solid black'
-    vert.style.border = 'none'
+    horiz.style.border = '3px solid white'
+    vert.style.border = '1px solid white'
     horizclick = true
     vertclick = false
   })
@@ -200,15 +196,21 @@ $(() => {
     for (let i = 0; i < mapSize.length; i++) {
       if (mapSize[i] === myCarrier) {
         $mapItems.eq(i).addClass('carrier')
-        $playerCarrier.style='display: none;'
+        $playerCarrier.css('visibility', 'hidden')
       } else if (mapSize[i] === myBattleship) {
         $mapItems.eq(i).addClass('battleship')
+        $playerBattleShip.css('visibility', 'hidden')
       } else if (mapSize[i] === myCruiser) {
         $mapItems.eq(i).addClass('cruiser')
+        $playerCruiser.css('visibility', 'hidden')
       } else if (mapSize[i] === mySubmarine) {
         $mapItems.eq(i).addClass('submarine')
+        $playerSubmarine.css('visibility', 'hidden')
       } else if (mapSize[i] === myDestroyer) {
         $mapItems.eq(i).addClass('destroyer')
+        $playerDestroyer.css('visibility', 'hidden')
+      } else {
+        $mapItems.off('click')
       }
     }
   })
@@ -216,27 +218,24 @@ $(() => {
 
 
   //###################################### - SHOOTING - ########################################
-
-
   const cpuFire = document.querySelector('.cpufire')
   cpuFire.addEventListener('click', () => {
     const $mapItems = $('.grid-item')
-    const random = Math.floor((Math.random() * 100))
-    const targetMap = parseInt(random.target.dataset.id)
+    const targetMap = Math.floor((Math.random() * 100))
     console.log(targetMap)
     if (mapSize[targetMap]) {
       mapSize[targetMap].hitPoints--
       $bang[0].play()
       $mapItems.eq(targetMap).addClass('hit')
+      if (mapSize[targetMap].hitPoints === 0) {
+        mapSize[targetMap].shipSunk = true
+        $textBox.text(`The enemy destroyed your ${radarSize[targetMap].shipType}, ending the lives of ${radarSize[targetMap].crew} of your sailors.`)
+      }
+    } else {
+      $mapItems.eq(targetMap).addClass('miss')
+      $splash[0].play()
     }
   })
-
-  //
-  //   console.log('fire captain!')
-  // }
-
-
-
 
   const $radarItems = $('.radar-item')
   $radarItems.on('click',(e) => {
@@ -259,12 +258,6 @@ $(() => {
     console.log(radarSize)
   })
 
-
-
-
-  // const randomShot = function() {
-  //   return Math.floor((Math.random() * 100))
-  // }
   // const huntShot = function () {
   //   return (previousShot + 1 || -1 || + 10 || -10)
   // }
@@ -275,5 +268,5 @@ $(() => {
 
   //########################################################################################
 
-  // **************************************DO NOT WRITE BELOW THIS LINE*********************************************************
+  // *************************DO NOT WRITE BELOW THIS LINE****************************************
 })
