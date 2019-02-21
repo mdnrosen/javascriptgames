@@ -60,7 +60,7 @@ $(() => {
       return Math.floor((Math.random() * 100)) % (10 - this.shipLength)
     }
     vaShip() {
-      return Math.floor((Math.random() * (100 - (this.shipLength * 10) + 10)))
+      return Math.floor((Math.random() * (100 - (this.shipLength * 10))))
     }
     horizVert () {
       return Math.floor((Math.random() * 2))
@@ -100,25 +100,86 @@ $(() => {
 
   //$$$$$$$$$$$$$$$$$$$$$$$$$$$$ - CPU SHIP PLACEMENT - $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
+
+  // function placeShip(shipType) {
+  //   if (shipType.horizVert() === 1) {
+  //     let vaPoint = shipType.vaShip()
+  //     radarSize[vaPoint] = shipType
+  //     $radarItems.eq(vaPoint).addClass('enemyShip')
+  //     for (let i = 1; i < shipType.shipLength; i++) {
+  //       vaPoint += 10
+  //       radarSize[vaPoint] = shipType
+  //       $radarItems.eq(vaPoint).addClass('enemyShip')
+  //     }
+  //   } else if (shipType.haShip() < shipType.shipLength) {
+  //     let haPoint = shipType.haShip()
+  //     radarSize[haPoint] = shipType
+  //     $radarItems.eq(haPoint).addClass('enemyShip')
+  //     for (let i = 0; i < shipType.shipLength; i++) {
+  //       haPoint ++
+  //       radarSize[haPoint] = shipType
+  //       $radarItems.eq(haPoint).addClass('enemyShip')
+  //     }
+  //     // if ((radarSize[haPoint]).classList.contains('enemyShip')) placeShip(shipType)
+  //     // radarSize[haPoint] = shipType
+  //   } else {
+  //     // return placeShip(shipType)
+  //     //stop occupied squares being used
+  //   }
+  // }
+
+  function checkSpaceVert(point, shipLength) {
+    let check
+    for(let i = 0; i < shipLength; i++) {
+      if (!occupiedRadar.includes(point + (i +10))) {
+        check = true
+      } else {
+        return false
+      }
+    } if(check) return true
+  }
+
+  function checkSpaceHoriz(point, shipLength) {
+    let check
+    for(let i = 0; i < shipLength; i++) {
+      if (!occupiedRadar.includes(point + i)) {
+        check = true
+      } else {
+        return false
+      }
+    } if(check) return true
+  }
+
   function placeShip(shipType) {
     if (shipType.horizVert() === 1) {
       let vaPoint = shipType.vaShip()
       radarSize[vaPoint] = shipType
-      for (let i = 1; i < shipType.shipLength; i++) {
-        vaPoint += 10
-        if ((radarSize[vaPoint]).hasClass('enemyShip')) return placeShip(shipType)
-        radarSize[vaPoint] = shipType
-        shipType.classList.addClass('enemyShip')
+      if (checkSpaceVert(vaPoint,shipType.shipLength)) {
+        for (let i = 1; i < shipType.shipLength; i++) {
+          vaPoint += 10
+          radarSize[vaPoint] = shipType
+          occupiedRadar.push(vaPoint)
+        }
+      } else {
+        placeShip(shipType)
       }
     } else if (shipType.haShip() < shipType.shipLength) {
       let haPoint = shipType.haShip()
-      for (let i = 0; i < shipType.shipLength; i++) {
-        haPoint ++
-        radarSize[haPoint] = shipType
-      } occupiedRadar.push(shipType)
+      radarSize[haPoint] = shipType
+      if (checkSpaceHoriz(haPoint, shipType.shipLength)) {
+        for (let i = 1; i < shipType.shipLength; i++) {
+          haPoint ++
+          radarSize[haPoint] = shipType
+          occupiedRadar.push(haPoint)
+        }
+      } else {
+        placeShip(shipType)
+      }
+
+      console.log(occupiedRadar)
+      console.log(radarSize)
     } else {
-      return placeShip(shipType)
-      //stop occupied squares being used
+      placeShip(shipType)
     }
   }
 
@@ -130,7 +191,6 @@ $(() => {
     placeShip(cruiser)
     placeShip(submarine)
     placeShip(destroyer)
-    console.log(radarSize)
     showShips()
     cpuPlaceShips.style.visibility = 'hidden'
   })
@@ -139,15 +199,15 @@ $(() => {
     const $radarItems = $('.radar-item')
     for (let i = 0; i < radarSize.length; i++) {
       if (radarSize[i] === carrier) {
-        $radarItems.eq(i).addClass('carrier')
+        $radarItems.eq(i).addClass('carrier enemyShip')
       } else if (radarSize[i] === battleship) {
-        $radarItems.eq(i).addClass('battleship')
+        $radarItems.eq(i).addClass('battleship enemyShip')
       } else if (radarSize[i] === cruiser) {
-        $radarItems.eq(i).addClass('cruiser')
+        $radarItems.eq(i).addClass('cruiser enemyShip')
       } else if (radarSize[i] === submarine) {
-        $radarItems.eq(i).addClass('submarine')
+        $radarItems.eq(i).addClass('submarine enemyShip')
       } else if (radarSize[i] === destroyer) {
-        $radarItems.eq(i).addClass('destroyer')
+        $radarItems.eq(i).addClass('destroyer enemyShip')
       }
     }
   }
