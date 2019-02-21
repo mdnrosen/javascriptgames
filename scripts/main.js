@@ -131,7 +131,7 @@ $(() => {
   function checkSpaceVert(point, shipLength) {
     let check
     for(let i = 0; i < shipLength; i++) {
-      if (!occupiedRadar.includes(point + (i +10))) {
+      if (!occupiedRadar.includes(point + i) && !occupiedRadar.includes(point + (i * 10))) {
         check = true
       } else {
         return false
@@ -153,8 +153,9 @@ $(() => {
   function placeShip(shipType) {
     if (shipType.horizVert() === 1) {
       let vaPoint = shipType.vaShip()
-      radarSize[vaPoint] = shipType
       if (checkSpaceVert(vaPoint,shipType.shipLength)) {
+        radarSize[vaPoint] = shipType
+        occupiedRadar.push(vaPoint)
         for (let i = 1; i < shipType.shipLength; i++) {
           vaPoint += 10
           radarSize[vaPoint] = shipType
@@ -165,8 +166,9 @@ $(() => {
       }
     } else if (shipType.haShip() < shipType.shipLength) {
       let haPoint = shipType.haShip()
-      radarSize[haPoint] = shipType
-      if (checkSpaceHoriz(haPoint, shipType.shipLength)) {
+      if (checkSpaceHoriz(haPoint,shipType.shipLength)) {
+        radarSize[haPoint] = shipType
+        occupiedRadar.push(haPoint)
         for (let i = 1; i < shipType.shipLength; i++) {
           haPoint ++
           radarSize[haPoint] = shipType
@@ -175,12 +177,12 @@ $(() => {
       } else {
         placeShip(shipType)
       }
-
-      console.log(occupiedRadar)
-      console.log(radarSize)
+      // console.log(radarSize)
     } else {
       placeShip(shipType)
     }
+    console.log(occupiedRadar)
+    console.log(radarSize)
   }
 
 
@@ -191,7 +193,6 @@ $(() => {
     placeShip(cruiser)
     placeShip(submarine)
     placeShip(destroyer)
-    showShips()
     cpuPlaceShips.style.visibility = 'hidden'
   })
   //=========MAKING CPU SHIPS SHOW ON RADAR=========================
