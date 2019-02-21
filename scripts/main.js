@@ -83,13 +83,13 @@ $(() => {
       mainGame.style.display = 'none'
       startButton.style.display = 'block'
       startButton.style.background = 'rgba(0, 0, 0, 0.5)'
-      startButton.innerHTML = 'The sea is full of the bodies of your foes, what a win!'
+      startButton.innerHTML = 'Mission Accomplished, thousands of people are dead.'
     } else if (myCarrier.shipSunk === true && myBattleship.shipSunk === true && myCruiser.shipSunk === true && mySubmarine.shipSunk === true && myDestroyer.shipSunk === true) {
       mainGame.style.display = 'none'
       startButton.style.display = 'block'
       startButton.style.background = 'rgba(0, 0, 0, 0.5)'
       startButton.style.textDecoration = 'none'
-      startButton.innerHTML = 'Mission failed. You can choose to go down with your ship, or take the easy way out.'
+      startButton.innerHTML = 'Mission failed. You have let your people die.'
     }
   }
 
@@ -311,22 +311,27 @@ $(() => {
   const cpuFire = document.querySelector('.cpufire')
 
 
-  cpuFire.addEventListener('click', () => {
-    enemyShoots()
-    checkForWinner()
-  })
+  // cpuFire.addEventListener('click', () => {
+  //   enemyShoots()
+  //   checkForWinner()
+  // })
+
+
   function enemyShoots() {
     const $mapItems = $('.grid-item')
     const targetMap = Math.floor((Math.random() * 100))
-    console.log(targetMap)
-    if (mapSize[targetMap]) {
+    if ($mapItems.eq(targetMap).is('.hit','.miss')) {
+      enemyShoots()
+    } else if (mapSize[targetMap]) {
       mapSize[targetMap].hitPoints--
       $bang[0].play()
       $mapItems.eq(targetMap).addClass('hit')
+      setTimeout(enemyShoots,1000)
       if (mapSize[targetMap].hitPoints === 0) {
         mapSize[targetMap].shipSunk = true
         $textBox.text(`The enemy destroyed your ${radarSize[targetMap].shipType}, ending the lives of ${radarSize[targetMap].crew} of your sailors.`)
         checkForWinner()
+        setTimeout(enemyShoots,1000)
       }
     } else {
       $mapItems.eq(targetMap).addClass('miss')
@@ -350,15 +355,16 @@ $(() => {
         if (radarSize[targetedSq].hitPoints === 0) {
           radarSize[targetedSq].shipSunk = true
           checkForWinner()
-          $textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType}. A crew of  ${radarSize[targetedSq].crew} was on board. There were no survivors.`)
+          $textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType} sending all  ${radarSize[targetedSq].crew} crew to their watery demise.`)
         }
       } else {
         $radarItems.eq(targetedSq).addClass('miss')
-        console.log('MISSED!')
         $splash[0].play()
         $textBox.text('The enemy is attacking.')
+        setTimeout(enemyShoots,1800)
       }
       console.log(radarSize)
+
     }
   })
 
