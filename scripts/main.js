@@ -78,6 +78,24 @@ $(() => {
   const mySubmarine = new Ship('submarine',3,3,false, 122)
   const myDestroyer = new Ship('destroyer',2,2,false, 68)
 
+  function checkForWinner() {
+    if (carrier.shipSunk === true && battleship.shipSunk === true && cruiser.shipSunk === true && submarine.shipSunk === true && destroyer.shipSunk === true) {
+      mainGame.style.display = 'none'
+      startButton.style.display = 'block'
+      startButton.style.background = 'rgba(0, 0, 0, 0.5)'
+      startButton.innerHTML = 'The sea is full of the bodies of your foes, what a win!'
+    } else if (myCarrier.shipSunk === true && myBattleship.shipSunk === true && myCruiser.shipSunk === true && mySubmarine.shipSunk === true && myDestroyer.shipSunk === true) {
+      mainGame.style.display = 'none'
+      startButton.style.display = 'block'
+      startButton.style.background = 'rgba(0, 0, 0, 0.5)'
+      startButton.style.textDecoration = 'none'
+      startButton.innerHTML = 'Mission failed. You can choose to go down with your ship, or take the easy way out.'
+    }
+  }
+
+
+
+
   //------------------------------------------------------------------------------------------------
 
   //$$$$$$$$$$$$$$$$$$$$$$$$$$$$ - CPU SHIP PLACEMENT - $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -88,8 +106,10 @@ $(() => {
       radarSize[vaPoint] = shipType
       for (let i = 1; i < shipType.shipLength; i++) {
         vaPoint += 10
+        if ((radarSize[vaPoint]).hasClass('enemyShip')) return placeShip(shipType)
         radarSize[vaPoint] = shipType
-      } occupiedRadar.push(shipType)
+        shipType.classList.addClass('enemyShip')
+      }
     } else if (shipType.haShip() < shipType.shipLength) {
       let haPoint = shipType.haShip()
       for (let i = 0; i < shipType.shipLength; i++) {
@@ -97,10 +117,11 @@ $(() => {
         radarSize[haPoint] = shipType
       } occupiedRadar.push(shipType)
     } else {
-      placeShip(shipType)
+      return placeShip(shipType)
       //stop occupied squares being used
     }
   }
+
 
   const cpuPlaceShips = document.querySelector('.cpuPlaceShips')
   cpuPlaceShips.addEventListener('click', () => {
@@ -110,22 +131,26 @@ $(() => {
     placeShip(submarine)
     placeShip(destroyer)
     console.log(radarSize)
+    showShips()
     cpuPlaceShips.style.visibility = 'hidden'
   })
   //=========MAKING CPU SHIPS SHOW ON RADAR=========================
-  // const $radarItems = $('.radar-item')
-  // for (let i = 0; i < radarSize.length; i++) {
-  //   if (radarSize[i] === carrier) {
-  //     $radarItems.eq(i).addClass('carrier')
-  //   } else if (radarSize[i] === battleship) {
-  //     $radarItems.eq(i).addClass('battleship')
-  //   } else if (radarSize[i] === cruiser) {
-  //     $radarItems.eq(i).addClass('cruiser')
-  //   } else if (radarSize[i] === submarine) {
-  //     $radarItems.eq(i).addClass('submarine')
-  //   } else if (radarSize[i] === destroyer) {
-  //     $radarItems.eq(i).addClass('destroyer')
-  //   }
+  function showShips(){
+    const $radarItems = $('.radar-item')
+    for (let i = 0; i < radarSize.length; i++) {
+      if (radarSize[i] === carrier) {
+        $radarItems.eq(i).addClass('carrier')
+      } else if (radarSize[i] === battleship) {
+        $radarItems.eq(i).addClass('battleship')
+      } else if (radarSize[i] === cruiser) {
+        $radarItems.eq(i).addClass('cruiser')
+      } else if (radarSize[i] === submarine) {
+        $radarItems.eq(i).addClass('submarine')
+      } else if (radarSize[i] === destroyer) {
+        $radarItems.eq(i).addClass('destroyer')
+      }
+    }
+  }
   //====================================================================
 
   //************************************PLAYER SHIPS PLACEMENT*****************************************
@@ -156,7 +181,7 @@ $(() => {
 
   let currentShip
 
-  $playerCarrier.on('click', () => {
+  $playerCarrier.one('click', () => {
     currentShip = myCarrier
     console.log(currentShip)
   })
@@ -179,15 +204,19 @@ $(() => {
 
   const $mapItems = $('.grid-item')
   $mapItems.on('click',(e) => {
+    if(currentShip.isPlaced) return
     const myAnchor = parseInt(e.target.dataset.id)
     if (horizclick === true && vertclick === false) {
       for (let i = 0; i < currentShip.shipLength; i++) {
+        console.log(currentShip)
         mapSize[myAnchor + i] = currentShip
+        currentShip.isPlaced = true
         console.log(mapSize)
       }
     } else if (vertclick === true && horizclick === false) {
       for (let i = 0; i < currentShip.shipLength; i++) {
         mapSize[myAnchor + (i * 10)] = currentShip
+        currentShip.isPlaced = true
         console.log(mapSize)
       }
     } else {
@@ -210,16 +239,22 @@ $(() => {
         $mapItems.eq(i).addClass('destroyer')
         $playerDestroyer.css('visibility', 'hidden')
       } else {
-        $mapItems.off('click')
+        // $mapItems.off('click')
       }
     }
   })
 
 
 
-  //###################################### - SHOOTING - ########################################
+  //###################################### - CPU SHOOTING - ########################################
   const cpuFire = document.querySelector('.cpufire')
+
+
   cpuFire.addEventListener('click', () => {
+    enemyShoots()
+    checkForWinner()
+  })
+  function enemyShoots() {
     const $mapItems = $('.grid-item')
     const targetMap = Math.floor((Math.random() * 100))
     console.log(targetMap)
@@ -230,32 +265,40 @@ $(() => {
       if (mapSize[targetMap].hitPoints === 0) {
         mapSize[targetMap].shipSunk = true
         $textBox.text(`The enemy destroyed your ${radarSize[targetMap].shipType}, ending the lives of ${radarSize[targetMap].crew} of your sailors.`)
+        checkForWinner()
       }
     } else {
       $mapItems.eq(targetMap).addClass('miss')
       $splash[0].play()
+      $textBox.text('Your turn to fire Captain!')
     }
-  })
+    console.log(mapSize)
+  }
 
   const $radarItems = $('.radar-item')
+
   $radarItems.on('click',(e) => {
-    const targetedSq = parseInt(e.target.dataset.id)
-    if (radarSize[targetedSq]) {
-      radarSize[targetedSq].hitPoints--
-      $bang[0].play()
-      $radarItems.eq(targetedSq).addClass('hit')
-      if (radarSize[targetedSq].hitPoints === 0) {
-        radarSize[targetedSq].shipSunk = true
-        // $radarItems[targetedSq].shipType.removeClass('hit')
-        // $radarItems[targetedSq].shipType.addClass('sunk')
-        $textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType}. A crew of  ${radarSize[targetedSq].crew} was on board. There were no survivors.`)
+    playerShoots()
+    checkForWinner()
+    function playerShoots() {
+      const targetedSq = parseInt(e.target.dataset.id)
+      if (radarSize[targetedSq]) {
+        radarSize[targetedSq].hitPoints--
+        $bang[0].play()
+        $radarItems.eq(targetedSq).addClass('hit')
+        if (radarSize[targetedSq].hitPoints === 0) {
+          radarSize[targetedSq].shipSunk = true
+          checkForWinner()
+          $textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType}. A crew of  ${radarSize[targetedSq].crew} was on board. There were no survivors.`)
+        }
+      } else {
+        $radarItems.eq(targetedSq).addClass('miss')
+        console.log('MISSED!')
+        $splash[0].play()
+        $textBox.text('The enemy is attacking.')
       }
-    } else {
-      $radarItems.eq(targetedSq).addClass('miss')
-      console.log('MISSED!')
-      $splash[0].play()
+      console.log(radarSize)
     }
-    console.log(radarSize)
   })
 
   // const huntShot = function () {
