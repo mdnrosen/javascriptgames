@@ -49,12 +49,11 @@ $(() => {
 
   // ------------------------------SHIP CREATION-------------------------------------------------
   class Ship {
-    constructor(shipType,hitPoints, shipLength, shipSunk, crew) {
+    constructor(shipType,hitPoints, shipLength, shipSunk) {
       this.shipType = shipType,
       this.hitPoints = hitPoints,
       this.shipLength = shipLength,
       this.shipSunk = shipSunk
-      this.crew = crew
     }
     haShip() {
       return Math.floor((Math.random() * 100)) % (10 - this.shipLength)
@@ -66,30 +65,30 @@ $(() => {
       return Math.floor((Math.random() * 2))
     }
   }
-  const carrier = new Ship('carrier',5,5,false, 6324)
-  const battleship = new Ship('battleship',4,4,false, 862)
-  const cruiser = new Ship('cruiser',3,3,false, 377)
-  const submarine = new Ship('submarine',3,3,false, 134)
-  const destroyer = new Ship('destroyer',2,2,false, 61)
+  const carrier = new Ship('carrier',5,5,false)
+  const battleship = new Ship('battleship',4,4,false)
+  const cruiser = new Ship('cruiser',3,3,false)
+  const submarine = new Ship('submarine',3,3,false)
+  const destroyer = new Ship('destroyer',2,2,false)
 
-  const myCarrier = new Ship('carrier',5,5,false, 5823)
-  const myBattleship = new Ship('battleship',4,4,false, 921)
-  const myCruiser = new Ship('cruiser',3,3,false, 354)
-  const mySubmarine = new Ship('submarine',3,3,false, 122)
-  const myDestroyer = new Ship('destroyer',2,2,false, 68)
+  const myCarrier = new Ship('carrier',5,5,false)
+  const myBattleship = new Ship('battleship',4,4,false)
+  const myCruiser = new Ship('cruiser',3,3,false,3)
+  const mySubmarine = new Ship('submarine',3,3,false)
+  const myDestroyer = new Ship('destroyer',2,2,false)
 
   function checkForWinner() {
     if (carrier.shipSunk === true && battleship.shipSunk === true && cruiser.shipSunk === true && submarine.shipSunk === true && destroyer.shipSunk === true) {
       mainGame.style.display = 'none'
       startButton.style.display = 'block'
       startButton.style.background = 'rgba(0, 0, 0, 0.5)'
-      startButton.innerHTML = 'Mission Accomplished, thousands of people are dead.'
+      startButton.innerHTML = 'Mission Accomplished, the enemy has been destroyed.'
     } else if (myCarrier.shipSunk === true && myBattleship.shipSunk === true && myCruiser.shipSunk === true && mySubmarine.shipSunk === true && myDestroyer.shipSunk === true) {
       mainGame.style.display = 'none'
       startButton.style.display = 'block'
       startButton.style.background = 'rgba(0, 0, 0, 0.5)'
       startButton.style.textDecoration = 'none'
-      startButton.innerHTML = 'Mission failed. You have let your people die.'
+      startButton.innerHTML = 'Mission failed. Your fleet lies at the bottom of the ocean.'
     }
   }
 
@@ -278,6 +277,7 @@ $(() => {
 
 
 
+
   //###################################### - CPU SHOOTING - ########################################
   const cpuFire = document.querySelector('.cpufire')
 
@@ -300,7 +300,7 @@ $(() => {
       setTimeout(enemyShoots,1000)
       if (mapSize[targetMap].hitPoints === 0) {
         mapSize[targetMap].shipSunk = true
-        $textBox.text(`The enemy destroyed your ${radarSize[targetMap].shipType}, ending the lives of ${radarSize[targetMap].crew} of your sailors.`)
+        $textBox.text(`The enemy destroyed your ${radarSize[targetMap].shipType}.`)
         checkForWinner()
         setTimeout(enemyShoots,1000)
       }
@@ -326,7 +326,7 @@ $(() => {
         if (radarSize[targetedSq].hitPoints === 0) {
           radarSize[targetedSq].shipSunk = true
           checkForWinner()
-          $textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType} sending all  ${radarSize[targetedSq].crew} crew to their watery demise.`)
+          $textBox.text(`You sunk the enemy ${radarSize[targetedSq].shipType}!`)
         }
       } else {
         $radarItems.eq(targetedSq).addClass('miss')

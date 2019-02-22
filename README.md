@@ -1,5 +1,8 @@
 # wdi39-project-1
 
+
+
+Initial Thoughts - all written before the project.
 My initial plan is to create the game 'BattleShips' as my first project. I think it will be a challenge for me, and some aspects of the game immediately have forced me to think how I will approach them. Setting up the grid and styling the page is not too much of a concern, so I will keep the styling basic to begin with while I solve the following problems that worry me the most:
 
   1. <h5>Ship placement at the beginning of the game.</h5>
@@ -10,4 +13,7 @@ My initial plan is to create the game 'BattleShips' as my first project. I think
 
 These two points are what has my brain ticking over the most at the moment, but I'm sure more puzzles will present themselves as we go along. When creating a very basic layout to work with I'm going to make sure I add extra buttons that I can later replace with images or other styling, just so that I can give them commands to test specific aspects of the game as I progress.
 
-Stage one is to write out the timeline of the game in plain english, and then in suedo code. Following this I can put together the basic style of the page once I know how and which elements I will need to build and manipulate.
+Stage one is to write out the timeline of the game in plain english, and then in suedo code. Following this I can put together the basic style of the page once I know how and which elements I will need to build and manipulate...!!
+
+
+Post project summary:

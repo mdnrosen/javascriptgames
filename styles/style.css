@@ -33,7 +33,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   display: none;
-  animation-name: slideInUp;
+  animation-name: fadeInUpBig;
   animation-duration: 2.5s;
 }
 
@@ -226,8 +226,4 @@ button {
 
   /* .enemyShip {
     background: inherit;
-  } */
-
-  /* .hit {
-    background-color: ;
   } */
