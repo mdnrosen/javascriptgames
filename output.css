@@ -1,0 +1,73 @@
+body {
+  background-color: papayawhip;
+  font-family: "Darker Grotesque", sans-serif;
+}
+body a {
+  text-decoration: none;
+  color: inherit;
+}
+
+main {
+  margin: 0 auto;
+  width: 50vw;
+  height: 90vh;
+}
+main header {
+  text-align: center;
+}
+main header h2 .collection {
+  font-family: "Satisfy", cursive;
+  font-weight: 200;
+}
+main .contains-tiles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: space-around;
+}
+main .contains-tiles .gamelink {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  text-align: center;
+  margin: 20px;
+  height: 200px;
+  width: 200px;
+  border: 2px solid #505050;
+  box-shadow: 0 0 rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+  transform: scale(1);
+}
+main .contains-tiles .gamelink h3 {
+  margin: 0;
+  width: 90%;
+  padding-bottom: 2px;
+  align-self: center;
+  border-bottom: 0.5px solid #252525;
+}
+main .contains-tiles .gamelink img {
+  margin: 0 auto;
+  width: 150px;
+  height: auto;
+}
+main .contains-tiles .gamelink .icon-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+}
+main .contains-tiles .gamelink .icon-container i {
+  font-size: 40px;
+}
+main .contains-tiles .gamelink:hover {
+  border: 2px solid #000000;
+  transition: 0.5s;
+}
+main .contains-tiles .battleships, main .contains-tiles .simpsons, main .contains-tiles .rockpaperscissors {
+  background-color: #FFFFFF;
+}
+
+/*# sourceMappingURL=output.css.map */

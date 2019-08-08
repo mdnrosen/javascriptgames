@@ -12,6 +12,11 @@ body {
   background-size: cover;
 }
 
+a {
+  text-decoration: underline;
+  color: whitesmoke;
+}
+
 .start {
   text-align: center;
   margin-top: 200px;

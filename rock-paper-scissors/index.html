@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://kit.fontawesome.com/defc60e742.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/output.css">
+    <title>Rock Paper Scissors</title>
+  </head>
+
+  <body>
+    <main>
+
+      <header>
+        <div class="contains-title-rules">
+          <h2>ROCK, PAPER, SCISSORS</h2>
+          <h6 class="rules">rock beats scissors | scissors beat paper | paper beats rock</h6>
+        </div>
+      </header>
+
+      <section class="game">
+        <div class="contains-playerNames">
+          <h2>YOU</h2>
+          <h2>CPU</h2>
+        </div>
+        <div class="contains-playerScores">
+          <h2 class="playerScore"></h2>
+          <h2 class="cpuScore"></h2>
+        </div>
+        <div class="contains-gameBoxes">
+          <div class="gameBox playerBox"></div>
+          <div class="messages"></div>
+          <div class="gameBox cpuBox"></div>
+        </div>
+
+        <div class="contains-choices">
+          <h3>Select your hand</h3>
+          <span class="icons-wrapper">
+            <div class="icon-container"> <i class="far fa-hand-rock rock"></i> </div>
+            <div class="icon-container"> <i class="far fa-hand-paper paper"></i>  </div>
+            <div class="icon-container"> <i class="far fa-hand-scissors scissors"></i> </div>
+          </span>
+        </div>
+        
+      </section>
+
+      <footer>
+        <button id="go">go again</button>
+      </footer>
+    </main>
+    <a class="backtomenu" href="http://mdndevelopment.co.uk/javascriptgames/"><h2><-- back to game menu</h2></a>
+  </body>
+
+</html>
