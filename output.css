@@ -66,7 +66,7 @@ main .contains-tiles .gamelink:hover {
   border: 2px solid #000000;
   transition: 0.5s;
 }
-main .contains-tiles .battleships, main .contains-tiles .simpsons, main .contains-tiles .rockpaperscissors {
+main .contains-tiles .battleships, main .contains-tiles .simpsons, main .contains-tiles .rockpaperscissors, main .contains-tiles .cricket {
   background-color: #FFFFFF;
 }
 

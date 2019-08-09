@@ -28,6 +28,7 @@ main {
         justify-content: space-around;
         align-items: space-around;
             .gamelink {
+                
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
@@ -71,7 +72,7 @@ main {
                 border: 2px solid #000000;
                 transition: 0.5s;
             }
-            .battleships, .simpsons, .rockpaperscissors {
+            .battleships, .simpsons, .rockpaperscissors, .cricket {
                 background-color: #FFFFFF;
             }
 
