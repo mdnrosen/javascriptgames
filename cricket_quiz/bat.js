@@ -1,10 +1,8 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-const gameContainer = document.querySelector('.game-container')
-
-const players = [
-
+    const batsmen = [
+        
     {
         rank: 1,
         firstName: 'sachin',
@@ -99,10 +97,10 @@ const players = [
     
 ]
 
-
-
+const gameContainer = document.querySelector('.game-container')
 let correctAnswers = 0
-players.forEach(player => {
+batsmen.forEach(batter => {
+
     const wrapper = document.createElement('div')
     const rank = document.createElement('div')
     const country = document.createElement('div')
@@ -111,27 +109,23 @@ players.forEach(player => {
     gameContainer.appendChild(wrapper)
 
     wrapper.appendChild(rank)
-    rank.innerHTML = player.rank
+    rank.innerHTML = batter.rank
 
     wrapper.appendChild(country)
-    country.setAttribute('class', player.country)
+    country.setAttribute('class', batter.country)
     wrapper.appendChild(input)
     wrapper.appendChild(runs)
     runs.setAttribute('class', 'runs')
 
-
-
-
-
     input.addEventListener('keyup', (e) => {
-        if (e.target.value.toLowerCase() === player.lastName) {
-            runs.innerHTML = player.runs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        if (e.target.value.toLowerCase() === batter.lastName) {
+            runs.innerHTML = batter.runs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             const fullName = document.createElement('span')
             fullName.setAttribute('class', 'fullName')
             wrapper.appendChild(fullName)
             wrapper.replaceChild(fullName, wrapper.childNodes[2])
-            first = player.firstName.charAt(0).toUpperCase() + player.firstName.slice(1)
-            last = player.lastName.charAt(0).toUpperCase() + player.lastName.slice(1)
+            first = batter.firstName.charAt(0).toUpperCase() + batter.firstName.slice(1)
+            last = batter.lastName.charAt(0).toUpperCase() + batter.lastName.slice(1)
             fullName.innerHTML = `${first + ' ' + last}`
             wrapper.style.borderColor = 'green'
             correctAnswers++
@@ -139,22 +133,14 @@ players.forEach(player => {
         } else {
         }
     })
-
-
-
-
-
     wrapper.setAttribute('class', 'wrapper')
-
-
-
-
 })
 
 
 
 
 
+    
 
 
 // DO NOT WRITE BELOW THIS LINE

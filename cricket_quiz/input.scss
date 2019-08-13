@@ -6,7 +6,7 @@ html {
 body {
     width: 100vw;
     font-family: "Darker Grotesque", sans-serif;
-    background-color: #252525;
+    background-color: oldlace;
 
 
 }
@@ -15,16 +15,37 @@ main {
     height: 100%;
     width: 100%;
     margin: 0 auto;
-    background-color: #252525;
+    background-color: oldlace;
     box-sizing: border-box;
+    .thetoss {
+        margin: 0 auto;
+        width: 300px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        background-color: papayawhip;
+        border: 2px solid black;
+        h2 {
+            color: #181818;
+        }
+        a {
+            img {
+                height: 200px; 
+                width: auto;
+            }
+        }
+    }
     h2 {
         margin: 0;
         padding: 10px;
         text-align: center;
-        color: whitesmoke;
+        color: #252525;
 
     }
     .game-container {
+        background-color: papayawhip;
         margin: 0 auto;
         width: 600px;
         display: flex;
@@ -32,6 +53,8 @@ main {
         align-items: center;
         justify-content: center;
         border: 2px solid #252525;
+        padding-top: 15px;
+        padding-bottom: 15px;
         .wrapper {
             display: flex;
             flex-direction: row;
@@ -39,23 +62,23 @@ main {
             height: 40px; 
             width: 500px;
             padding: 5px;
-            border: 2px solid #505050;
+            border: 0.5px solid #505050;
             margin: 2px;
             div {
                 text-align: center;
                 height: 100%;
                 width: 15%;
                 font-size: 1.5em;
-                color: whitesmoke;
+                color: #252525;
                 font-size: 1.4em;
             }
             input {
                 height: 100%;
                 width: 45%;
                 border: 1px solid white;
-                background:#505050;
+                background: coral;
                 opacity: 0.9;
-                color: whitesmoke;
+                color: #252525;
                 font-size: 1.4em;
                 padding: 0;
             }
@@ -63,7 +86,7 @@ main {
                 height: 100%;
                 width: 20%;
                 text-align: center;
-                color: whitesmoke;
+                color: #252525;
                 font-size: 1.6em;
             }
             .fullName {
@@ -114,6 +137,12 @@ main {
 }
 .rsa {
     background-image: url('rsa.webp');
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+}
+.nz {
+    background-image: url('nz.png');
     background-size: cover;
     background-position: center;
     margin-right: 10px;
