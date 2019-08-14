@@ -76,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
         },
         {
             rank: 11,
-            firstName: 'sir richard',
+            firstName: 'richard',
             lastName: 'hadlee',
             wickets: 431,
             country: 'nz'

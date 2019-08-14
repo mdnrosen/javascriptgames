@@ -14,6 +14,11 @@ main {
   margin: 0 auto;
   background-color: oldlace;
   box-sizing: border-box;
+  text-align: center;
+}
+main a {
+  text-decoration: underline;
+  color: inherit;
 }
 main .thetoss {
   margin: 0 auto;
