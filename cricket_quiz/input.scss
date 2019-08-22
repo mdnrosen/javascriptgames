@@ -111,26 +111,33 @@ main {
                 text-align: center;
                 color: #252525;
                 font-size: 1.6em;
-                line-height: 200%;
+                line-height: 100%;
 
                 @media only screen and (max-width: 700px) {
                     font-size: 1.4em;
+                    line-height: 200%;
                  }
                  @media only screen and (max-width: 600px) {
                     font-size: 1.1em;
+                    line-height: 200%;
+
                  }
             }
             .fullName {
                 height: 100%;
                 width: 45%;
                 text-align: center;
-                line-height: 200%;
+                line-height: 100%;
                 @media only screen and (max-width: 700px) {
                     font-size: 1.4em;
+                    line-height: 200%;
+
 
                  }
                  @media only screen and (max-width: 600px) {
                     font-size: 1.05em;
+                    line-height: 200%;
+
                  }
             }
         }
